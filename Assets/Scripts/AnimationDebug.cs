@@ -5,7 +5,7 @@ public class AnimationDebug : MonoBehaviour
     public Animator animator;
     public CharacterController controller;
 
-    private float speed = 0f; // Speed for animations (0 = Idle, 1 = Walking, 2 = Running)
+    [SerializeField] private float speed = 0f; // Speed for animations (0 = Idle, 1 = Walking, 2 = Running)
     private float movementDirection = 0f; // Direction for animation blending
     private bool isWalking = false; // Whether the player is walking
     private bool isRunning = false; // Whether the player is running
