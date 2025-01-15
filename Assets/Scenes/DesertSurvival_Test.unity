@@ -409,8 +409,9 @@ GameObject:
   - component: {fileID: 1639642597}
   - component: {fileID: 1639642596}
   - component: {fileID: 1639642602}
-  - component: {fileID: 1639642600}
-  - component: {fileID: 1639642601}
+  - component: {fileID: 1639642605}
+  - component: {fileID: 1639642604}
+  - component: {fileID: 1639642603}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -455,36 +456,6 @@ Transform:
   - {fileID: 731589890}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1639642600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639642595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52b36c4487c18c849a8bf7f0fcb956d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1639642596}
-  controller: {fileID: 1639642602}
---- !u!114 &1639642601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639642595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8fae5f613a0c154a9ad1b58df7b0a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1639642596}
-  controller: {fileID: 1639642602}
-  moveSpeed: 3
-  rotationSpeed: 700
 --- !u!143 &1639642602
 CharacterController:
   m_ObjectHideFlags: 0
@@ -511,6 +482,48 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1639642603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639642595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1198b648084071d40a6cc1ff15c2371d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: -9.81
+--- !u!114 &1639642604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639642595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d82e5f98e84f95489997b931be56c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  rotationSpeed: 700
+--- !u!114 &1639642605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639642595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87908e842b94784984b8c2b0d70e151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1639642596}
+  transitionSpeed: 2
+  gatheringTransitionSpeed: 2
 --- !u!1 &1704025504
 GameObject:
   m_ObjectHideFlags: 0
