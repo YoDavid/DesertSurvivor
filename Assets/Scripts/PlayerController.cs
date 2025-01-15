@@ -1,19 +1,27 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 3f;
-    public float rotationSpeed = 700f;
+    [Header("Components")]
+    [SerializeField] private CharacterController _controller;
+    [SerializeField] private PlayerAnimator _animator;
+    [SerializeField] private Transform _cameraTransform; // Reference to the camera's transform
 
-    private CharacterController controller;
-    private PlayerAnimator animator;
-    private Vector3 moveDirection;
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float rotationSpeed;
+
+    [Header("Movement Data")]
+    [SerializeField] private Vector3 moveDirection;
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
-        animator = GetComponent<PlayerAnimator>();
+        _controller = GetComponent<CharacterController>();
+        _animator = GetComponent<PlayerAnimator>();
+        if (_cameraTransform == null)
+        {
+            _cameraTransform = Camera.main.transform; // Fallback to main camera if not assigned
+        }
     }
 
     void Update()
@@ -24,20 +32,30 @@ public class PlayerController : MonoBehaviour
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
         bool isGathering = Input.GetKey(KeyCode.G);
 
-        // Calculate move direction
-        moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
+        // Calculate movement direction relative to the camera's orientation
+        Vector3 forward = _cameraTransform.forward;
+        forward.y = 0; // Ignore vertical component
+        forward.Normalize();
+
+        Vector3 right = _cameraTransform.right;
+        right.y = 0; // Ignore vertical component
+        right.Normalize();
+
+        moveDirection = (forward * vertical + right * horizontal).normalized;
 
         // Handle rotation and movement
         if (moveDirection.magnitude >= 0.1f)
         {
+            // Calculate target angle
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationSpeed, 0.1f);
             transform.rotation = Quaternion.Euler(0, angle, 0);
 
-            controller.Move(moveDirection * moveSpeed * Time.deltaTime);
+            // Move the player
+            _controller.Move(moveDirection * moveSpeed * Time.deltaTime);
         }
 
-        // Update animation parameters (passing moveDirection, isRunning, isGathering)
-        animator.UpdateAnimatorParameters(moveDirection, isRunning, isGathering);
+        // Update animation parameters
+        _animator.UpdateAnimatorParameters(moveDirection, isRunning, isGathering);
     }
 }

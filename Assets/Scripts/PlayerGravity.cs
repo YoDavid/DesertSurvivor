@@ -1,25 +1,29 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerGravity : MonoBehaviour
 {
-    public float gravity = -9.81f;
-    private Vector3 velocity;
-    private CharacterController controller;
+    [Header("Components")]
+    [SerializeField] private CharacterController _controller;
 
-    void Start()
+    [Header("Gravity")]
+    [SerializeField] private float _gravity = -9.81f;
+
+    [Header("Velocity")]
+    [SerializeField] private Vector3 _velocity;
+
+    private void Start()
     {
-        controller = GetComponent<CharacterController>();
+        _controller = GetComponent<CharacterController>();
     }
 
-    void Update()
+    private void Update()
     {
-        if (controller.isGrounded && velocity.y < 0)
+        if (_controller.isGrounded && _velocity.y < 0)
         {
-            velocity.y = -2f;
+            _velocity.y = -2f;
         }
 
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        _velocity.y += _gravity * Time.deltaTime;
+        _controller.Move(_velocity * Time.deltaTime);
     }
 }
