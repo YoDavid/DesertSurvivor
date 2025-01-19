@@ -25,7 +25,7 @@ public class TimeManager : MonoBehaviour
         set { minutes = value; OnMinutesChange(value); }
     }
 
-    private int hours = 5;
+    private int hours = 6;
 
     public int Hours
     {
