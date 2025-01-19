@@ -67,7 +67,7 @@ public class TemperatureManager : MonoBehaviour
     {
         if (temperatureText != null)
         {
-            temperatureText.text = "Temperature: " + Mathf.RoundToInt(currentTemperature) + "°C";
+            temperatureText.text = Mathf.RoundToInt(currentTemperature) + "°C";
         }
     }
 }

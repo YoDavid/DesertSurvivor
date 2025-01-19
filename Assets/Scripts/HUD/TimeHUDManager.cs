@@ -25,6 +25,6 @@ public class TimeHUDManager : MonoBehaviour
     {
         // Format the time in HH:MM format and display it
         string formattedTime = string.Format("{0:D2}:{1:D2}", timeManager.Hours, timeManager.Minutes);
-        timeText.text = "Time: " + formattedTime;
+        timeText.text = formattedTime;
     }
 }
