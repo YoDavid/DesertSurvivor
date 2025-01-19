@@ -15,9 +15,7 @@ public class ThirdPersonCamera : MonoBehaviour
     [SerializeField] private float _height;
 
     [Header("Rotation")]
-    [SerializeField] private float _xRotation;
     [SerializeField] private float _yRotation;
-    [SerializeField] private float _xRotationSpeed;
     [SerializeField] private float _yRotationSpeed;
 
     [Header("State")]
@@ -25,7 +23,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void Update()
     {
-        // Handle zoom 
+        // Handle zoom
         _currentDistance -= Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed;
         _currentDistance = Mathf.Clamp(_currentDistance, _minDistance, _maxDistance);
 
@@ -37,14 +35,12 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         if (_isRotating)
         {
-            // Handle camera rotation
-            _xRotation += Input.GetAxis("Mouse Y") * _xRotationSpeed * Time.deltaTime;
-            _xRotation = Mathf.Clamp(_xRotation, -90f, 90f); // Limit vertical rotation
+            // Handle camera rotation on the Y-axis only
             _yRotation += Input.GetAxis("Mouse X") * _yRotationSpeed * Time.deltaTime;
         }
 
         // Calculate camera position
-        Vector3 direction = Quaternion.Euler(_xRotation, _yRotation, 0f) * Vector3.forward;
+        Vector3 direction = Quaternion.Euler(0f, _yRotation, 0f) * Vector3.forward;
         Vector3 position = _player.position - direction * _currentDistance;
         position.y = _player.position.y + _height;
 
