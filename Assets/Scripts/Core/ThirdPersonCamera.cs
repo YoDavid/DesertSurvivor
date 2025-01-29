@@ -18,7 +18,8 @@ public class ThirdPersonCamera : MonoBehaviour
     [SerializeField] private float _yRotation;
     [SerializeField] private float _yRotationSpeed;
 
-    [Header("State")]
+    [Header("Collision")]
+    [SerializeField] private LayerMask collisionMask; // LayerMask for terrain and objects
     private bool _isRotating;
 
     private void Update()
@@ -39,13 +40,23 @@ public class ThirdPersonCamera : MonoBehaviour
             _yRotation += Input.GetAxis("Mouse X") * _yRotationSpeed * Time.deltaTime;
         }
 
-        // Calculate camera position
+        // Calculate desired camera position
         Vector3 direction = Quaternion.Euler(0f, _yRotation, 0f) * Vector3.forward;
-        Vector3 position = _player.position - direction * _currentDistance;
-        position.y = _player.position.y + _height;
+        Vector3 desiredPosition = _player.position - direction * _currentDistance;
+        desiredPosition.y = _player.position.y + _height;
+
+        // Raycast to check for collisions
+        RaycastHit hit;
+        if (Physics.Raycast(_player.position, (desiredPosition - _player.position).normalized, out hit, _currentDistance, collisionMask))
+        {
+            // Move camera closer to the hit point to prevent clipping
+            float hitDistance = Mathf.Clamp(hit.distance - 0.2f, _minDistance, _maxDistance);
+            desiredPosition = _player.position - direction * hitDistance;
+            desiredPosition.y = _player.position.y + _height;
+        }
 
         // Set camera position and rotation
-        transform.position = position;
+        transform.position = desiredPosition;
         transform.LookAt(_player);
     }
 }
